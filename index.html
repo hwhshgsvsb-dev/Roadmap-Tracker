@@ -1,17 +1,211 @@
-# 15 LPA in 6 Months
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>15 LPA Roadmap Tracker</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--tx:#1d1d1b;--mut:#6b6a64;--bd:#e3e1d9;--ac:#2f5bea;--todo:#8a8880;--pend:#d98a00;--done:#1f9d55;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141413;--card:#1e1e1c;--tx:#f0efe9;--mut:#a09f97;--bd:#33332f;--ac:#6f93ff;--todo:#9a998f;--pend:#f0a830;--done:#3ccf7a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141413;--card:#1e1e1c;--tx:#f0efe9;--mut:#a09f97;--bd:#33332f;--ac:#6f93ff;--todo:#9a998f;--pend:#f0a830;--done:#3ccf7a;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:16px}
+h1{font-size:1.4rem;margin:4px 0 2px}
+.sub{color:var(--mut);font-size:.9rem;margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:12px}
+.bar{height:10px;background:var(--bd);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--done);width:0;transition:width .3s}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.stats{display:flex;gap:8px;margin-top:10px;font-size:.85rem}
+.stats span{flex:1;text-align:center;padding:6px;border-radius:8px;background:var(--bg)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px}
+.tab{flex:0 0 auto;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:999px;padding:8px 14px;font:inherit;font-size:.9rem;cursor:pointer}
+.tab.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.tab small{opacity:.8;margin-left:4px}
+.now{font-size:.7rem;background:var(--pend);color:#000;border-radius:6px;padding:1px 5px;margin-left:4px}
+h2{font-size:1.1rem;margin:0}
+.goal{color:var(--mut);font-size:.9rem;margin:2px 0 10px}
+h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);margin:14px 0 6px}
+.task{border-top:1px solid var(--bd);padding:10px 0}
+.task:first-of-type{border-top:0}
+.tt{margin-bottom:8px}
+.task.s2 .tt{text-decoration:line-through;color:var(--mut)}
+.seg{display:flex;gap:6px}
+.seg button{flex:1;border:1px solid var(--bd);background:var(--bg);color:var(--mut);border-radius:8px;padding:8px 4px;font:inherit;font-size:.82rem;cursor:pointer}
+.seg button.on[data-s="0"]{background:var(--todo);color:#fff;border-color:var(--todo)}
+.seg button.on[data-s="1"]{background:var(--pend);color:#000;border-color:var(--pend)}
+.seg button.on[data-s="2"]{background:var(--done);color:#fff;border-color:var(--done)}
+ul.tips{margin:0;padding-left:20px;color:var(--mut);font-size:.9rem}
+ul.tips li{margin:4px 0}
+input[type=date],textarea{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:8px}
+textarea{width:100%;min-height:70px;margin-top:6px}
+.btn{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:8px;padding:8px 12px;font:inherit;font-size:.85rem;cursor:pointer}
+.warn{background:var(--bg);border-left:4px solid var(--pend);padding:8px 10px;border-radius:6px;font-size:.88rem;margin-top:8px}
+body{background:radial-gradient(900px 400px at 10% -10%,color-mix(in srgb,var(--ac) 22%,transparent),transparent),radial-gradient(700px 400px at 100% 0%,color-mix(in srgb,var(--done) 16%,transparent),transparent),var(--bg);background-attachment:fixed;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+h1{font-size:1.8rem;font-weight:800;letter-spacing:-.02em;background:linear-gradient(90deg,var(--ac),var(--done));-webkit-background-clip:text;background-clip:text;color:transparent}
+.card{border-radius:18px;box-shadow:0 6px 24px rgba(20,20,40,.07);backdrop-filter:blur(6px);animation:rise .45s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.bar{height:12px;border-radius:8px}
+.bar i{background:linear-gradient(90deg,var(--ac),var(--done))}
+#pct{font-size:1.6rem;font-weight:800}
+.tab{transition:all .2s;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.tab:hover{transform:translateY(-1px)}
+.tab.on{background:linear-gradient(135deg,var(--ac),color-mix(in srgb,var(--ac) 60%,#8a5cf6));box-shadow:0 6px 16px color-mix(in srgb,var(--ac) 40%,transparent)}
+.task{transition:background .2s;border-radius:10px;padding:10px 8px}
+.task:hover{background:var(--bg)}
+.seg button{transition:all .15s;font-weight:600}
+.seg button:active{transform:scale(.96)}
+.btn{transition:all .15s}.btn:hover{border-color:var(--ac)}
+.btn.pri{background:var(--ac);color:#fff;border-color:var(--ac);font-weight:600}
+.focus{border:1px solid color-mix(in srgb,var(--ac) 45%,var(--bd))}
+.fh{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.fh h2{font-size:1.05rem}
+.fl{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ac);margin:12px 0 4px}
+.fi{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:12px;background:var(--bg);margin-bottom:6px}
+.fi span{flex:1;font-size:.92rem}
+.fi small{display:block;color:var(--mut);font-size:.72rem}
+.fi button{border:0;background:var(--done);color:#fff;border-radius:8px;padding:6px 10px;font:inherit;font-size:.78rem;font-weight:600;cursor:pointer}
+.banner{display:none;background:linear-gradient(135deg,var(--pend),#ff7a45);color:#000;border-radius:14px;padding:12px 14px;margin-bottom:12px;font-weight:600;animation:rise .4s ease both}
+.rnote{font-size:.8rem;color:var(--mut);margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>15 LPA in 6 Months</h1>
+  <div class="sub">Stay on the plan. Mark each task To do, Pending or Done.</div>
 
-Stay on the plan. Mark each task To do, Pending or Done.
+  <div class="card">
+    <div class="row" style="justify-content:space-between"><b id="pct">0%</b><span id="cnt" class="sub" style="margin:0"></span></div>
+    <div class="bar" style="margin-top:6px"><i id="fill"></i></div>
+    <div class="stats"><span id="sT"></span><span id="sP"></span><span id="sD"></span></div>
+    <div class="row" style="margin-top:12px">
+      <label class="sub" style="margin:0" for="start">Start date</label>
+      <input type="date" id="start">
+    </div>
+    <div id="today" class="warn" style="display:none"></div>
+  </div>
 
-**0%**
+  <div class="banner" id="banner"></div>
+  <div class="card focus" id="focus"></div>
+  <div class="card">
+    <div class="fh"><h2>Daily reminder</h2></div>
+    <div class="row">
+      <input type="time" id="rtime" style="font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:8px">
+      <button class="btn pri" id="rbtn">Turn on reminder</button>
+    </div>
+    <div class="rnote" id="rstat"></div>
+    <a class="btn" id="gcal" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;text-decoration:none">Add daily reminder to Google Calendar</a>
+    <div class="rnote">Calendar reminders notify you on your phone even when this page is closed.</div>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div id="month"></div>
 
-Start date
+  <div class="card">
+    <h2>Core rules</h2>
+    <ul class="tips" id="rules"></ul>
+  </div>
+  <div class="card">
+    <h2>Weekly notes</h2>
+    <textarea id="notes" placeholder="Wins, blockers, what to fix next week..."></textarea>
+  </div>
+  <div class="row" style="justify-content:space-between">
+    <button class="btn" id="theme">Toggle theme</button>
+    <button class="btn" id="reset">Reset all progress</button>
+  </div>
+</div>
 
-## Daily reminder
-
-Add daily reminder to Google Calendar
-
-Calendar reminders notify you on your phone even when this page is closed.
-
-## Core rules
-
-## Weekly notes
+<script>
+var RULES=["Stick to ONE language for all 6 months (e.g. C++). Do not switch midway.","Target Software Developer roles first; Junior AI Engineer as backup.","Alternate Airport: take a lower-paying offer as a safety net, but keep applying for the 15 LPA role.","The coding round is the first gate, even in the age of AI."];
+var M=[
+{n:"Month 1",t:"Foundation",g:"Learn the basics, start DSA, build version 1",
+ s:[["DSA",["Learn language basics (variables, loops)","Solve easy problems on LeetCode (e.g. Two Sum)","Practice Arrays, Strings, Hashing, Two Pointers, Binary Search"]],
+    ["Development",["Understand how the web works (Request/Response, APIs)","Build version 1 of a real-world project (e.g. smart file search tool)","Host the project on a platform like Render"]],
+    ["AI",["Not required yet: focus on coding basics"]]],
+ tips:["Consistency in one language is the most important rule.","C++ builds a deeper understanding of memory and pointers.","Pick a real-world problem, not a copied tutorial."]},
+{n:"Month 2",t:"Project V1 + First Applications",g:"Deepen DSA, upgrade the project, start applying",
+ s:[["DSA",["Linked Lists","Trees, BFS/DFS","Heaps","Practice with a 45-minute timer daily"]],
+    ["Development",["Proper database design","Caching with Redis","Rate limiting","Error handling"]],
+    ["AI",["Begin learning to call an AI model using Python"]],
+    ["Action",["Create a resume","Start LinkedIn posting","Begin applying for internships"]]],
+ tips:["Build ONE real project that solves a genuine problem.","Be able to defend every technical decision for an hour.","Treat internships as mandatory test drives.","AI work is mostly Python: learn only the libraries you need."]},
+{n:"Month 3",t:"AI Integration & Networking",g:"Add AI to your project, build connections",
+ s:[["DSA",["Graphs","Greedy algorithms","Basic Dynamic Programming","Two mock interviews per week"]],
+    ["Development",["Add AI (RAG) to the existing project so it answers from your own documents"]],
+    ["AI",["Measure AI performance: test ~30 queries, track accuracy and hallucinations, iterate"]],
+    ["Networking",["Aggressively seek referrals","Cold email startup founders"]]],
+ tips:["Don't just use AI, measure it.","Add RAG to your existing project instead of a new tutorial project.","Optional: Google AI Professional Certificate (Coursera)."]},
+{n:"Month 4",t:"Internships or Full-Time",g:"Stay in interview mode",
+ s:[["DSA",["Continue daily practice","Join coding contests"]],
+    ["Development",["Internship: treat every task as an interview, OR focus on Online Assessments"]],
+    ["Fundamentals",["Operating Systems","DBMS","Networking","OOPS"]],
+    ["Applications",["Send 30-40 applications this week","Send 20-30 referral requests this week"]]],
+ tips:["Internships are often the most reliable path to a full-time offer.","Rejections are inevitable: expect them.","Weekly targets: 30-40 applications, 20-30 referral requests."]},
+{n:"Months 5 & 6",t:"Interview Preparation",g:"Full interview mode",
+ s:[["Prep",["Read recent interview experiences on LeetCode and GeeksforGeeks","Explain your project (Redis/caching choices) for an hour","Three mock interviews per week"]],
+    ["Applications",["Maintain a high volume of job applications","Accept a safety-net offer if needed, but keep chasing the 15 LPA role"]]],
+ tips:["Never stop growing until you land the role you want.","Main target: Software Developer; secondary: Junior AI Engineer.","Volume of applications wins."]}
+];
+var KEY="roadmap15lpa_v1",st={status:{},start:"",notes:"",tab:0,theme:""};
+try{var r=localStorage.getItem(KEY);if(r)st=Object.assign(st,JSON.parse(r))}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+function $(i){return document.getElementById(i)}
+function id(m,s,t){return m+"-"+s+"-"+t}
+function counts(m){var c=[0,0,0];M.forEach(function(mo,mi){if(m!==undefined&&m!==mi)return;mo.s.forEach(function(sec,si){sec[1].forEach(function(_,ti){c[st.status[id(mi,si,ti)]||0]++})})});return c}
+function curMonth(){if(!st.start)return -1;var d=Math.floor((Date.now()-new Date(st.start+"T00:00:00").getTime())/864e5);if(d<0)return -1;return Math.min(4,d<120?Math.floor(d/30):d<150?4:4)}
+function render(){renderFocus();
+  var c=counts(),tot=c[0]+c[1]+c[2],p=Math.round(c[2]/tot*100);
+  $("pct").textContent=p+"% complete";$("cnt").textContent=c[2]+" of "+tot+" tasks";
+  $("fill").style.width=p+"%";
+  $("sT").textContent="To do: "+c[0];$("sP").textContent="Pending: "+c[1];$("sD").textContent="Done: "+c[2];
+  var cm=curMonth(),t=$("today");
+  if(st.start){
+    var d=Math.floor((Date.now()-new Date(st.start+"T00:00:00").getTime())/864e5);
+    t.style.display="block";
+    t.textContent=d<0?"Starts in "+(-d)+" day(s).":d>=180?"Day "+(d+1)+": the 6 months are up. Keep pushing until you land the role.":"Day "+(d+1)+" of 180. Focus now: "+M[cm].n+" ("+M[cm].t+").";
+  }else t.style.display="none";
+  $("tabs").innerHTML="";
+  M.forEach(function(mo,i){var b=document.createElement("button");b.className="tab"+(st.tab===i?" on":"");
+    var cc=counts(i),n=cc[0]+cc[1]+cc[2];
+    b.innerHTML=mo.n+"<small>"+cc[2]+"/"+n+"</small>"+(i===cm?'<span class="now">NOW</span>':"");
+    b.onclick=function(){st.tab=i;save();render()};$("tabs").appendChild(b)});
+  var mo=M[st.tab],h='<div class="card"><h2>'+mo.n+": "+mo.t+'</h2><div class="goal">'+mo.g+"</div>";
+  mo.s.forEach(function(sec,si){
+    h+="<h3>"+sec[0]+"</h3>";
+    sec[1].forEach(function(tx,ti){
+      var k=id(st.tab,si,ti),s=st.status[k]||0;
+      h+='<div class="task s'+s+'"><div class="tt">'+tx+'</div><div class="seg">'+
+      ["To do","Pending","Done"].map(function(l,v){return '<button data-k="'+k+'" data-s="'+v+'" class="'+(s===v?"on":"")+'">'+l+"</button>"}).join("")+"</div></div>"});
+  });
+  h+="<h3>Useful tips</h3><ul class=\"tips\">"+mo.tips.map(function(x){return "<li>"+x+"</li>"}).join("")+"</ul></div>";
+  $("month").innerHTML=h;
+  $("month").querySelectorAll(".seg button").forEach(function(b){b.onclick=function(){st.status[b.dataset.k]=+b.dataset.s;save();render()}});
+}
+function pendingList(){var cm=curMonth(),b=cm>=0?cm:st.tab,o=[];for(var m=b;m<M.length;m++)M[m].s.forEach(function(sec,si){sec[1].forEach(function(tx,ti){var k=id(m,si,ti);if((st.status[k]||0)!==2)o.push({k:k,tx:tx,sec:sec[0],mo:M[m].n,p:st.status[k]===1})})});return o}
+function fitem(x){return '<div class="fi"><span>'+x.tx+'<small>'+x.mo+' · '+x.sec+(x.p?' · pending':'')+'</small></span><button data-k="'+x.k+'">Done</button></div>'}
+function renderFocus(){var l=pendingList(),h='<div class="fh"><h2>What to do next</h2></div>';
+ if(!l.length)h+='<div class="goal">Everything is done. Keep applying and never stop growing.</div>';
+ else{var a=l.slice(0,3),b=l.slice(3,6);h+='<div class="fl">Today</div>'+a.map(fitem).join('');if(b.length)h+='<div class="fl">Tomorrow</div>'+b.map(fitem).join('')}
+ $("focus").innerHTML=h;$("focus").querySelectorAll("button").forEach(function(b){b.onclick=function(){st.status[b.dataset.k]=2;save();render()}})}
+function fireReminder(){var l=pendingList(),msg=l.length?'Today: '+l[0].tx+(l[1]?' (+'+Math.min(l.length-1,2)+' more)':''):'All tasks done. Keep applying!';
+ var bn=$("banner");bn.textContent='Reminder: '+msg;bn.style.display='block';
+ try{if('Notification' in window&&Notification.permission==='granted')new Notification('15 LPA Roadmap',{body:msg})}catch(e){}}
+function tick(){if(!st.ron)return;var n=new Date(),hm=('0'+n.getHours()).slice(-2)+':'+('0'+n.getMinutes()).slice(-2),day=n.toDateString();if(hm>=st.rtime&&st.rlast!==day){st.rlast=day;save();fireReminder()}}
+function gc(){var t=(st.rtime||'20:00').split(':'),d=new Date(),p=function(n){return ('0'+n).slice(-2)},ds=''+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate()),e=new Date(2000,0,1,+t[0],+t[1]+15),s=ds+'T'+t[0]+t[1]+'00',en=ds+'T'+p(e.getHours())+p(e.getMinutes())+'00';
+ $("gcal").href='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent('Check 15 LPA roadmap tracker')+'&dates='+s+'/'+en+'&recur='+encodeURIComponent('RRULE:FREQ=DAILY')+'&details='+encodeURIComponent('Open the tracker, mark tasks, plan today and tomorrow.')}
+function rui(){gc();$("rbtn").textContent=st.ron?'Turn off reminder':'Turn on reminder';$("rstat").textContent=st.ron?'On: daily at '+st.rtime+'. Works while this page is open in your browser. For a guaranteed alert, also set a phone alarm.':'Off. Pick a time and turn it on.'}
+st.rtime=st.rtime||'20:00';$("rtime").value=st.rtime;
+$("rtime").onchange=function(){st.rtime=this.value||'20:00';st.rlast='';save();rui()};
+$("rbtn").onclick=function(){st.ron=!st.ron;if(st.ron){try{if('Notification' in window&&Notification.permission==='default')Notification.requestPermission()}catch(e){}}save();rui();tick()};
+rui();setInterval(tick,20000);document.addEventListener('visibilitychange',tick);tick();
+$("rules").innerHTML=RULES.map(function(x){return "<li>"+x+"</li>"}).join("");
+$("start").value=st.start;$("start").onchange=function(){st.start=this.value;save();render()};
+$("notes").value=st.notes;$("notes").oninput=function(){st.notes=this.value;save()};
+$("reset").onclick=function(){if(confirm("Reset all progress?")){st.status={};save();render()}};
+function applyTheme(){if(st.theme)document.documentElement.setAttribute("data-theme",st.theme)}
+$("theme").onclick=function(){var dark=document.documentElement.getAttribute("data-theme")==="dark"||(!st.theme&&matchMedia("(prefers-color-scheme:dark)").matches);st.theme=dark?"light":"dark";save();applyTheme()};
+applyTheme();render();
+</script>
+</body>
+</html>
